@@ -15,7 +15,7 @@ import org.json.JSONObject;
 public class Untils {
 	Connection connection;
 	String driver = "com.mysql.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/zeronote";
+	String url = "jdbc:mysql://localhost:3306/zeronote?useUnicode=true&characterEncoding=utf-8";
 	String user = "root";
 	String passwd = "zjkzjk1996";
 	public Untils() {

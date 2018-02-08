@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet{
 	String truePassword = null;
 	ResultSet rs;
 	String returnJSon, mobile, pass;
-	boolean logtype;
+	int logtype;
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -41,19 +41,19 @@ public class LoginServlet extends HttpServlet{
 			JSONObject jsonObject = new JSONObject(jb.toString());
 			mobile = jsonObject.getString("mobile");
 			pass = jsonObject.getString("password");
-			logtype = jsonObject.getBoolean("logtype");
+			logtype = jsonObject.getInt("logtype");
 			
 		} catch (Exception e) {
 			// crash and burn
 			throw new IOException("Error parsing JSON request string");
 		}
 		Untils untils = new Untils();
-		String sql = "select PASSWORD FROM students WHERE mobile = " + mobile;
+		String sql = "select PASSWORD FROM user_infro WHERE mobile = " + mobile;
 		try {
 			rs = untils.select(sql);
 			while (rs.next()) {
 				truePassword = rs.getString("password");
-				System.out.println(truePassword);
+//				System.out.println(truePassword);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

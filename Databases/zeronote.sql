@@ -11,7 +11,7 @@
  Target Server Version : 50720
  File Encoding         : 65001
 
- Date: 08/02/2018 19:27:19
+ Date: 08/02/2018 21:09:50
 */
 
 SET NAMES utf8mb4;
@@ -49,16 +49,16 @@ DROP TABLE IF EXISTS `note_class`;
 CREATE TABLE `note_class` (
   `notec_id` int(20) NOT NULL AUTO_INCREMENT,
   `user_id` int(20) NOT NULL,
-  `notec_name` varchar(100) COLLATE utf8mb4_bin NOT NULL,
-  `notec_desc` text COLLATE utf8mb4_bin,
+  `notec_name` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `notec_desc` text CHARACTER SET utf8,
   `createtime` date NOT NULL,
   `pic` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL,
-  `updatedate` date NOT NULL,
+  `updatetime` date NOT NULL,
   `body` int(13) NOT NULL,
   PRIMARY KEY (`notec_id`),
   KEY `id` (`user_id`),
   CONSTRAINT `id` FOREIGN KEY (`user_id`) REFERENCES `user_infro` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- ----------------------------
 -- Table structure for note_type
@@ -83,6 +83,6 @@ CREATE TABLE `user_infro` (
   `birth` date DEFAULT NULL,
   `mobile` varchar(13) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 SET FOREIGN_KEY_CHECKS = 1;
