@@ -35,4 +35,32 @@
     <servlet-name>addnotec</servlet-name>  
     <url-pattern>/api/Notec/addNotec</url-pattern> 
   </servlet-mapping>  
+  
+  <servlet> 
+    <servlet-name>deletenotec</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Notec.DeleteNotecServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>deletenotec</servlet-name>  
+    <url-pattern>/api/Notec/deleteNotec</url-pattern> 
+  </servlet-mapping>  
+  
+  <servlet> 
+    <servlet-name>getenotec</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Notec.GetNotecServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>getenotec</servlet-name>  
+    <url-pattern>/api/Notec/getNotec</url-pattern> 
+  </servlet-mapping> 
+ 
+  
+  <servlet> 
+    <servlet-name>editornotec</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Notec.EditorNotecServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>editornotec</servlet-name>  
+    <url-pattern>/api/Notec/editorNotec</url-pattern> 
+  </servlet-mapping>  
 </web-app>

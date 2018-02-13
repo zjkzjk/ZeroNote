@@ -3,7 +3,6 @@ package com.lovingrabbit.Servlet.Notec;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,12 +16,9 @@ import org.json.JSONObject;
 
 import com.lovingrabbit.Servlet.Utils.Untils;
 
-public class AddNotecServlet extends HttpServlet{
-	String truePassword = null;
-	ResultSet rs;
-	int id;
-	String returnJSon, mobile, notec_name, notec_desc;
-	String createTime, updateTime;
+public class EditorNotecServlet extends HttpServlet{
+	int notec_id;
+	String notec_name,notec_desc,pic,updatetime,returnJSon;
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -37,39 +33,33 @@ public class AddNotecServlet extends HttpServlet{
 				jb.append(line);
 
 		} catch (Exception e) {
-			/* report an error */ }
-
+			/* report an error */ 
+		}
 		try {
 			// JsonObject解析
 			JSONObject jsonObject = new JSONObject(jb.toString());
-			mobile = jsonObject.getString("mobile");
+			notec_id = jsonObject.getInt("notec_id");
 			notec_name = jsonObject.getString("notec_name");
 			notec_desc = jsonObject.getString("notec_desc");
-			
+			pic = jsonObject.getString("pic");
 		} catch (Exception e) {
 			// crash and burn
 			throw new IOException("Error parsing JSON request string");
 		}
 		Untils untils = new Untils();
-		String selectSql = "select id from user_infro where mobile = " + mobile;
 		Date date = new Date();
-		createTime = dateToString(date);
-		updateTime = dateToString(date);
+		updatetime = dateToString(date);
+		String updateSql = "update note_class set notec_name=\""+ notec_name +"\",notec_desc=\""
+				+ notec_desc +"\",pic=\""+ pic +"\",updatetime=\""+ updatetime +"\" where notec_id="+notec_id;
 		try {
-			rs = untils.select(selectSql);
-			while (rs.next()) {
-				id = rs.getInt("id");
-			}
-			String addSql = "insert into note_class(user_id,notec_name,notec_desc,createtime,updatetime,pic,body)"
-					+"values(\""+id+"\",\""+ notec_name +"\",\""+ notec_desc+"\",\""+createTime+"\",\""+
-					updateTime+"\",\""+"/pic"+"\","+0+")";
-			System.out.println(addSql);
-			untils.insert(addSql);
+			System.out.println(updateSql);
+			untils.update(updateSql);
 			returnJSon = "{'result':" + 1 + "}";
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			returnJSon = "{'result':" + 0 + "}";
+			returnJSon = "{'result':" + 2 + "}";
 		}
 		JSONObject rjson = new JSONObject(returnJSon);
 		resp.setHeader("content-type", "application/json;charset=utf-8");
@@ -84,10 +74,10 @@ public class AddNotecServlet extends HttpServlet{
 		String ctime = formatter.format(time);
 		return ctime;
 	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.doGet(req, resp);
 	}
-
 }
