@@ -62,5 +62,23 @@
   <servlet-mapping> 
     <servlet-name>editornotec</servlet-name>  
     <url-pattern>/api/Notec/editorNotec</url-pattern> 
+  </servlet-mapping> 
+  
+  <servlet> 
+    <servlet-name>addnote</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Note.AddNoteServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>addnote</servlet-name>  
+    <url-pattern>/api/Note/addNote</url-pattern> 
+  </servlet-mapping>  
+  
+  <servlet> 
+    <servlet-name>getnote</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Note.GetNoteServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>getnote</servlet-name>  
+    <url-pattern>/api/Note/getNote</url-pattern> 
   </servlet-mapping>  
 </web-app>

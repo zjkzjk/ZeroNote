@@ -1,4 +1,4 @@
-package com.lovingrabbit.Servlet.Notec;
+package com.lovingrabbit.Servlet.Note;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,22 +10,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import com.lovingrabbit.Servlet.Utils.Untils;
 
-public class GetNotecServlet extends HttpServlet{
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
+public class GetNoteServlet extends HttpServlet{
 	ResultSet rSet,rs;
-	int user_id;
+	int user_id,ifshare;
 	JSONObject jsonObject;
 	JSONArray jsonArray;
-	int notec_id,count;
-	String notec_name,notec_desc,createTime,updateTime,body,pic;
+	int note_id,count,notet_id;
+	String note_title,note_body,createTime,updateTime,note_tag,location;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String usermobile = req.getParameter("mobile");
-		String selectsId = "select id from user_infro where mobile = "+ usermobile;
+		String selectsId = "select id from user_infro where mobile="+ usermobile;
+		System.out.println(selectsId);
 		Untils untils = new Untils();
 		count = 0;
 		jsonArray = new JSONArray();
@@ -34,24 +36,29 @@ public class GetNotecServlet extends HttpServlet{
 			while (rSet.next()) {
 				user_id = rSet.getInt("id");
 			}
-			String selectNotec = "select * from note_class where user_id =" + user_id;
-			rs = untils.select(selectNotec);
+			String selectNote = "select * from note where user_id=" + user_id;
+			System.out.println(selectNote);
+			rs = untils.select(selectNote);
 			while (rs.next()) {
-				notec_id = rs.getInt("notec_id");
-				notec_name = rs.getString("notec_name");
-				notec_desc = rs.getString("notec_desc");
+				note_id = rs.getInt("note_id");
+				note_title = rs.getString("note_title");
+				note_body = rs.getString("note_body");
 				createTime = rs.getString("createtime");
 				updateTime = rs.getString("updatetime");
-				body = rs.getString("body");
-				pic = rs.getString("pic");
+				note_tag = rs.getString("note_tag");
+				location = rs.getString("location");
+				ifshare = rs.getInt("ifshare");
+				notet_id = rs.getInt("notet_id");
 				jsonObject = new JSONObject();
-				jsonObject.put("notec_id", notec_id);
-				jsonObject.put("notec_name", notec_name);
-				jsonObject.put("notec_desc", notec_desc);
+				jsonObject.put("note_id", note_id);
+				jsonObject.put("note_title", note_title);
+				jsonObject.put("note_body", note_body);
 				jsonObject.put("createtime", createTime);
 				jsonObject.put("updatetime", updateTime);
-				jsonObject.put("body", body);
-				jsonObject.put("pic", pic);
+				jsonObject.put("note_tag", note_tag);
+				jsonObject.put("location", location);
+				jsonObject.put("ifshare", ifshare);
+				jsonObject.put("notet_id", notet_id);
 				jsonObject.put("count", count);
 				jsonArray.add(count,jsonObject);
 				count = count + 1;
@@ -67,7 +74,6 @@ public class GetNotecServlet extends HttpServlet{
 		resp.setCharacterEncoding("utf8");
 		PrintWriter out = resp.getWriter();
 		out.println(returnJSon);
-		
 	}
 	
 	@Override
