@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -16,6 +15,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-    @BindView(R.id.main_fab)
-    FloatingActionButton fab;
+    @BindView(R.id.fab_menu)
+    FloatingActionMenu fabMenu;
 
     Handler mHandler = new Handler() {
 
@@ -93,11 +95,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        assert fab!=null;
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        fabMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!fab){
+                if (fabMenu.isOpened()){
 
                 }
             }
