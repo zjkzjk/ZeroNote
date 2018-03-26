@@ -8,13 +8,12 @@
     tools:openDrawer="start">
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
+            android:layout_height="match_parent">
 
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/main_toolbar"
@@ -22,55 +21,50 @@
                 android:layout_height="wrap_content"
                 app:layout_scrollFlags="scroll|enterAlways|snap">
 
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="#fff"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:contentInsetStart="0dp"
-                    app:layout_scrollFlags="scroll|enterAlways|snap"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <EditText
-                            android:id="@+id/main_search"
-                            android:layout_width="match_parent"
-                            android:layout_height="36dp"
-                            android:focusable="true"
-                            android:singleLine="true"
-                            android:textColorHint="#a1a1a1"
-                            android:hint="搜索 下拉刷新返回"
-                            android:textSize="14sp"
-                            android:imeOptions="actionSearch"
-                            android:focusableInTouchMode="true"
-                            android:textColor="#000"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="20dp"
-                            android:background="@drawable/edittext_bg"
-                            android:paddingLeft="15dp">
-
-                        </EditText>
-
-                        <ImageButton
-                            android:id="@+id/search_btn"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_alignRight="@id/main_search"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="10dp"
-                            android:background="@drawable/magnify" />
-                    </RelativeLayout>
-
-                </android.support.v7.widget.Toolbar>
             </android.support.design.widget.AppBarLayout>
 
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:fitsSystemWindows="true"
+                android:paddingBottom="24dp"
+                android:layout_width="match_parent"
+                android:layout_height="84dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="#89434e"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:contentInsetStart="0dp"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
+            </android.support.v7.widget.Toolbar>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f3f8f9"
+                android:gravity="center"
+                android:layout_below="@id/toolbar">
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/file"/>
+
+            </LinearLayout>
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="40dp"
+                android:src="@drawable/add"
+                android:backgroundTint="#89434e"
+                app:fabSize="normal"
+                />
 
         </RelativeLayout>
 
@@ -80,6 +74,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        app:headerLayout="@layout/nav_head"
+        app:menu="@menu/activity_main_drawer"
         />
 
 </android.support.v4.widget.DrawerLayout>

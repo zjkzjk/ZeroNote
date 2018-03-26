@@ -12,4 +12,11 @@
     <string name="register_password">请输入设置密码</string>
     <string name="register_password_again">再次确认设置密码</string>
     <string name="register_btn">注册并开始使用笔记</string>
+    <string name="main_label">所有笔记</string>
+    <string name="search">查找</string>
+    <string name="select_note">选择笔记</string>
+    <string name="add_desktop">添加到手机主屏</string>
+    <string name="sort_type">排序方式</string>
+    <string name="view_options">查看选项</string>
+    <string name="setting">设置</string>
 </resources>

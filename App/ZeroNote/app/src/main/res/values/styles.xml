@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:actionOverflowButtonStyle">@style/Action_OverflowButtonStyle</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
@@ -16,6 +17,10 @@
     <style name="MyEditText" parent="Theme.AppCompat.Light">
         <item name="colorControlNormal">#89434e</item>
         <item name="colorControlActivated">#89434e</item>
+    </style>
+
+    <style name="Action_OverflowButtonStyle" >
+        <item name="android:src">@drawable/more</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
