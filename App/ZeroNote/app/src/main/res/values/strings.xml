@@ -19,4 +19,10 @@
     <string name="sort_type">排序方式</string>
     <string name="view_options">查看选项</string>
     <string name="setting">设置</string>
+    <string name="all_note">所有笔记</string>
+    <string name="note_book">笔记本</string>
+    <string name="share_note">共享笔记</string>
+    <string name="rubbish">回收站</string>
+    <string name="user_test">这是用户名用户名</string>
+    <string name="mobile_test">这是绑定邮箱或电话号码</string>
 </resources>

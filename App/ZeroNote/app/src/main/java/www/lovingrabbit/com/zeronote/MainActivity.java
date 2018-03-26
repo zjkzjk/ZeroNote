@@ -3,19 +3,19 @@ package www.lovingrabbit.com.zeronote;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+    @BindView(R.id.main_fab)
+    FloatingActionButton fab;
 
     Handler mHandler = new Handler() {
 
@@ -67,11 +69,39 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-//        View draw = navigationView.inflateHeaderView(R.layout.nav_header);
         if (actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.mipmap.menu);
         }
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.all_note:
+                        Toast.makeText(MainActivity.this,"all_note",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.note_book:
+                        Toast.makeText(MainActivity.this,"note_book",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.share_note:
+                        Toast.makeText(MainActivity.this,"share_note",Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.rubbish:
+                        Toast.makeText(MainActivity.this,"rubbish",Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
+        assert fab!=null;
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!fab){
+
+                }
+            }
+        });
 
     }
     @Override
@@ -79,9 +109,11 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 drawerLayout.openDrawer(navigationView);
-            default:
-                return super.onOptionsItemSelected(item);
+                break;
+
+
         }
+        return super.onOptionsItemSelected(item);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -4,15 +4,32 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="200dp"
+        android:orientation="vertical"
         android:background="#89434e">
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="90dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="44dp"
             android:layout_height="90dp"
             android:padding="2dp"
-            android:src="@mipmap/ic_launcher_round"/>
+            android:src="@drawable/user"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:textSize="14sp"
+            android:textColor="#fbfbf7"
+            android:layout_marginLeft="22dp"
+            android:text="@string/user_test"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="4dp"
+            android:textSize="12sp"
+            android:textColor="#fbfbf7"
+            android:layout_marginLeft="22dp"
+            android:text="@string/mobile_test"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
