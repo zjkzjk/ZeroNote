@@ -41,20 +41,15 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             </android.support.v7.widget.Toolbar>
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#f3f8f9"
                 android:gravity="center"
+                android:id="@+id/main_fragment"
                 android:layout_below="@id/toolbar">
-                <ImageView
-                    android:id="@+id/no_note_book"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/file"/>
 
-            </LinearLayout>
+            </FrameLayout>
 
             <com.github.clans.fab.FloatingActionMenu
                 android:id="@+id/fab_menu"
@@ -66,30 +61,40 @@
                 android:paddingBottom="40dp"
                 app:menu_fab_size="normal"
                 app:menu_labels_ellipsize="end"
-                app:menu_backgroundColor="#99ffffff"
+                app:menu_backgroundColor="#bbffffff"
                 app:menu_colorNormal="#89434e"
-                app:menu_colorPressed="#723841"  >
+                app:menu_colorPressed="#723841"
+                app:fab_colorRipple="#89434e">
 
                 <com.github.clans.fab.FloatingActionButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/picture"
                     app:fab_label="图片"
-                    app:menu_fab_size="mini"
-                    app:menu_colorNormal="#89434e"/>
+                    app:fab_size="mini"
+                    app:fab_colorNormal="#89434e"
+                    app:menu_colorPressed="#723841"
+                    app:fab_colorRipple="#89434e"/>
 
                 <com.github.clans.fab.FloatingActionButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:src="@drawable/write"
                     app:fab_label="手写"
-                    app:menu_fab_size="mini"
-                    app:menu_colorNormal="#89434e"/>
+                    app:fab_size="mini"
+                    app:fab_colorNormal="#89434e"
+                    app:menu_colorPressed="#723841"
+                    app:fab_colorRipple="#89434e"/>
 
                 <com.github.clans.fab.FloatingActionButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:fab_label="文字"
-                    app:menu_fab_size="mini"
-                    app:menu_colorNormal="#89434e"/>
+                    app:fab_size="mini"
+                    android:src="@drawable/word"
+                    app:fab_colorNormal="#89434e"
+                    app:menu_colorPressed="#723841"
+                    app:fab_colorRipple="#89434e"/>
 
             </com.github.clans.fab.FloatingActionMenu>
 
@@ -101,6 +106,7 @@
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#fbfbf7"
         android:layout_gravity="start"
         app:headerLayout="@layout/nav_head"
         app:menu="@menu/activity_main_drawer"

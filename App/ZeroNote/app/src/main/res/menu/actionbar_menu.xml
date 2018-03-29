@@ -7,6 +7,12 @@
         android:title="@string/search"
         app:showAsAction="always" />
     <item
+        android:id="@+id/action_add_notec"
+        android:icon="@drawable/addnotec"
+        android:visible="false"
+        android:title="@string/search"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/select_note"
         android:title="@string/select_note"
         app:showAsAction="never" />

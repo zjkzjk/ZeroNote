@@ -25,4 +25,8 @@
     <string name="rubbish">回收站</string>
     <string name="user_test">这是用户名用户名</string>
     <string name="mobile_test">这是绑定邮箱或电话号码</string>
+    <string name="exit">再按一次退出程序</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
