@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f3f8f9"
+    tools:context=".AddNoteActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/add_note_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="#f3f8f9"
+            android:fitsSystemWindows="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:paddingBottom="24dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentInsetStart="0dp"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        </android.support.v7.widget.Toolbar>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:maxLines="1"
+            android:id="@+id/add_note_title"
+            android:textSize="18sp"
+            android:layout_below="@id/add_note_toolbar"
+            android:hint="笔记标题"
+            android:background="@null"
+            android:layout_height="40dp" />
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/add_note_title"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="14dp"
+            android:src="@drawable/books"/>
+        <Spinner
+            android:layout_width="match_parent"
+            android:id="@+id/add_note_spinner"
+            android:layout_below="@id/add_note_title"
+            android:spinnerMode="dropdown"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:background="@null"
+            android:layout_height="40dp">
+        </Spinner>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/add_note_line"
+            android:layout_below="@id/add_note_spinner"
+            android:background="#89434e"/>
+        <EditText
+            android:layout_below="@id/add_note_line"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:background="@null"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <android.support.design.widget.NavigationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f3f8f9"
+        android:layout_gravity="end">
+
+    </android.support.design.widget.NavigationView>
+
+</android.support.v4.widget.DrawerLayout>

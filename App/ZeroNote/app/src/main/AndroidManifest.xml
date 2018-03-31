@@ -34,7 +34,13 @@
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddNoteActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="">
+
+        </activity>
     </application>
 
 </manifest>

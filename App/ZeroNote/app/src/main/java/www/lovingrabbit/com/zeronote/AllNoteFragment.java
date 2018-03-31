@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import www.lovingrabbit.com.zeronote.Adapter.AllNote;
 import www.lovingrabbit.com.zeronote.Adapter.AllNoteAdapter;
 import www.lovingrabbit.com.zeronote.R;
+import www.lovingrabbit.com.zeronote.tools.ItemClickSupport;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +42,13 @@ public class AllNoteFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         adapter = new AllNoteAdapter(allNotes);
         recyclerView.setAdapter(adapter);
+
+        ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
+                return false;
+            }
+        });
     }
 
     private void initList() {
