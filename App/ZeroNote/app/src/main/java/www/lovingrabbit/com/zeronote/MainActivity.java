@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         inflater.inflate(R.menu.actionbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
+    //fragment切换
     public void fragmentChange(Fragment fragment) {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

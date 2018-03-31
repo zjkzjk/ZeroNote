@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_compose"
+        android:icon="@drawable/search"
+        android:title="@string/search"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_add_notec"
+        android:icon="@drawable/addnotec"
+        android:visible="false"
+        android:title="@string/search"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/select_note"
+        android:title="@string/select_note"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/add_desktop"
+        android:title="@string/add_desktop"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/sort_type"
+        android:title="@string/sort_type"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/view_options"
+        android:title="@string/view_options"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/setting"
+        android:title="@string/setting"
+        app:showAsAction="never" />
+</menu>

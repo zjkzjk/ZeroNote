@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
-
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,24 +56,30 @@
             android:layout_marginLeft="22dp"
             android:layout_marginTop="14dp"
             android:src="@drawable/books"/>
-        <Spinner
+        <Button
             android:layout_width="match_parent"
-            android:id="@+id/add_note_spinner"
+            android:id="@+id/select_notec"
             android:layout_below="@id/add_note_title"
             android:spinnerMode="dropdown"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
+            android:textColor="#4c4c4c"
+            android:text="我是笔记本一号"
+            android:gravity="center_vertical"
+            android:paddingTop="6dp"
             android:background="@null"
+            android:dropDownVerticalOffset="-41dp"
+            android:popupBackground="#f3f8f9"
             android:layout_height="40dp">
-        </Spinner>
+        </Button>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:id="@+id/add_note_line"
-            android:layout_below="@id/add_note_spinner"
-            android:background="#89434e"/>
+            android:layout_below="@id/select_notec"
+            android:background="@color/deep_red"/>
         <EditText
             android:layout_below="@id/add_note_line"
             android:layout_marginTop="20dp"

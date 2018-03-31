@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="www.lovingrabbit.com.zeronote.SelectNotecActivity">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|enterAlways|snap">
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/select_note_toolbar"
+        android:fitsSystemWindows="true"
+        android:paddingBottom="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/deep_red"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStart="0dp"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <LinearLayout
+            android:layout_width="60dp"
+            android:id="@+id/select_notec_back"
+            android:layout_height="match_parent">
+            <ImageView
+
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="22dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/back_small"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#fbfbf7"
+            android:layout_marginTop="14dp"
+
+            android:text="移动笔记"/>
+
+    </android.support.v7.widget.Toolbar>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

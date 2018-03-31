@@ -32,7 +32,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:background="#89434e"
+                android:background="@color/deep_red"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -62,9 +62,9 @@
                 app:menu_fab_size="normal"
                 app:menu_labels_ellipsize="end"
                 app:menu_backgroundColor="#bbffffff"
-                app:menu_colorNormal="#89434e"
+                app:menu_colorNormal="@color/deep_red"
                 app:menu_colorPressed="#723841"
-                app:fab_colorRipple="#89434e">
+                app:fab_colorRipple="@color/deep_red">
 
                 <com.github.clans.fab.FloatingActionButton
                     android:layout_width="wrap_content"
@@ -72,9 +72,9 @@
                     android:src="@drawable/picture"
                     app:fab_label="图片"
                     app:fab_size="mini"
-                    app:fab_colorNormal="#89434e"
+                    app:fab_colorNormal="@color/deep_red"
                     app:menu_colorPressed="#723841"
-                    app:fab_colorRipple="#89434e"/>
+                    app:fab_colorRipple="@color/deep_red"/>
 
                 <com.github.clans.fab.FloatingActionButton
                     android:layout_width="wrap_content"
@@ -82,9 +82,9 @@
                     android:src="@drawable/write"
                     app:fab_label="手写"
                     app:fab_size="mini"
-                    app:fab_colorNormal="#89434e"
+                    app:fab_colorNormal="@color/deep_red"
                     app:menu_colorPressed="#723841"
-                    app:fab_colorRipple="#89434e"/>
+                    app:fab_colorRipple="@color/deep_red"/>
 
                 <com.github.clans.fab.FloatingActionButton
                     android:layout_width="wrap_content"
@@ -93,9 +93,9 @@
                     app:fab_size="mini"
                     android:id="@+id/fab_text"
                     android:src="@drawable/word"
-                    app:fab_colorNormal="#89434e"
+                    app:fab_colorNormal="@color/deep_red"
                     app:menu_colorPressed="#723841"
-                    app:fab_colorRipple="#89434e"/>
+                    app:fab_colorRipple="@color/deep_red"/>
 
             </com.github.clans.fab.FloatingActionMenu>
 

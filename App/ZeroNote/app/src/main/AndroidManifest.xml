@@ -37,10 +37,11 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddNoteActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="">
-
-        </activity>
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".SelectNotecActivity"
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
