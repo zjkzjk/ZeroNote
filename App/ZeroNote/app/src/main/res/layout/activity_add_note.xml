@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f3f8f9"
+    android:id="@+id/add_note_drawerlayout"
     tools:context=".AddNoteActivity">
 
     <RelativeLayout
@@ -87,11 +88,13 @@
             android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:background="@null"
+            android:hint="@string/add_note_article"
             android:layout_height="wrap_content" />
     </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/add_note_nav"
         android:background="#f3f8f9"
         android:layout_gravity="end">
 

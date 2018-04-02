@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"test",Toast.LENGTH_SHORT).show();
                 intent = new Intent(MainActivity.this,AddNoteActivity.class);
                 startActivity(intent);
+                fabMenu.close(true);
             }
         });
 //        fabMenu.addMenuButton(fab_text);
