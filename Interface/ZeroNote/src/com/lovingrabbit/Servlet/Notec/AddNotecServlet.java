@@ -19,8 +19,9 @@ import com.lovingrabbit.Servlet.Utils.Untils;
 
 public class AddNotecServlet extends HttpServlet{
 	String truePassword = null;
-	ResultSet rs;
+	ResultSet rs,rw;
 	int id;
+	String notec_id = "";
 	String returnJSon, mobile, notec_name, notec_desc;
 	String createTime, updateTime;
 	@Override
@@ -31,7 +32,7 @@ public class AddNotecServlet extends HttpServlet{
 		String line = null;
 		String result = "";
 		try {
-			// StringBuffer读入字节流
+			// StringBuffer璇诲叆瀛楄妭娴�
 			BufferedReader reader = req.getReader();
 			while ((line = reader.readLine()) != null)
 				jb.append(line);
@@ -40,7 +41,7 @@ public class AddNotecServlet extends HttpServlet{
 			/* report an error */ }
 
 		try {
-			// JsonObject解析
+			// JsonObject瑙ｆ瀽
 			JSONObject jsonObject = new JSONObject(jb.toString());
 			mobile = jsonObject.getString("mobile");
 			notec_name = jsonObject.getString("notec_name");
@@ -52,20 +53,31 @@ public class AddNotecServlet extends HttpServlet{
 		}
 		Untils untils = new Untils();
 		String selectSql = "select id from user_infro where mobile = " + mobile;
+		String isexist = "select notec_id from note_class where notec_name = \""+notec_name+"\"";
 		Date date = new Date();
 		createTime = dateToString(date);
 		updateTime = dateToString(date);
 		try {
 			rs = untils.select(selectSql);
-			while (rs.next()) {
-				id = rs.getInt("id");
+			rw = untils.select(isexist);
+			while (rw.next()) {
+				notec_id = rw.getString("notec_id");
 			}
-			String addSql = "insert into note_class(user_id,notec_name,notec_desc,createtime,updatetime,pic,body)"
-					+"values(\""+id+"\",\""+ notec_name +"\",\""+ notec_desc+"\",\""+createTime+"\",\""+
-					updateTime+"\",\""+"/pic"+"\","+0+")";
-			System.out.println(addSql);
-			untils.insert(addSql);
-			returnJSon = "{'result':" + 1 + "}";
+			if (!notec_id.equals("")) {
+				returnJSon = "{'result':" + 2 + "}";
+			}
+			else {
+				while (rs.next()) {
+				id = rs.getInt("id");
+				}
+				String addSql = "insert into note_class(user_id,notec_name,notec_desc,createtime,updatetime,pic,body)"
+						+"values(\""+id+"\",\""+ notec_name +"\",\""+ notec_desc+"\",\""+createTime+"\",\""+
+						updateTime+"\",\""+"/pic"+"\","+0+")";
+				System.out.println(addSql);
+				untils.insert(addSql);
+				returnJSon = "{'result':" + 1 + "}";
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

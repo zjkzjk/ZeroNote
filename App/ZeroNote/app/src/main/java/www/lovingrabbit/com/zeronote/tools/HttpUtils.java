@@ -65,6 +65,13 @@ public class HttpUtils {
         Log.e("test", jsonObject.toString());
         return jsonObject.toString();
     }
+    public String addNotec(String mobile,String notec_name,String notec_desc) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("mobile",mobile);
+        jsonObject.put("notec_name",notec_name);
+        jsonObject.put("notec_desc",notec_desc);
+        return jsonObject.toString();
+    }
 
 
 }

@@ -85,6 +85,7 @@
             android:layout_below="@id/add_note_line"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
+            android:id="@+id/add_note_artical"
             android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:background="@null"

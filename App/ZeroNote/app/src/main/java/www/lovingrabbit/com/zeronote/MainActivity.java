@@ -2,8 +2,12 @@ package www.lovingrabbit.com.zeronote;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.LoaderManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.Loader;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +21,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,8 +40,10 @@ import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import www.lovingrabbit.com.zeronote.tools.AddNotecAsyncTaskLoader;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
+    private static final String TAG = "MainActivity";
     // 定义一个变量，来标识是否退出
     private static boolean isExit = false;
     @BindView(R.id.drawer_layout)
@@ -53,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     boolean isMenuShuffle = true;
     Menu nMenu;
     Intent intent;
-    EditText editText;
+    EditText add_notec;
     MenuItem addNotec, compose;
     Handler mHandler = new Handler() {
 
@@ -63,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
             isExit = false;
         }
     };
+    LoaderManager loaderManager;
+    String ADD_NOTEC = "http://47.93.222.179/ZeroNote/api/Notec/addNotec";
 
     private void exit() {
         if (!isExit) {
@@ -104,7 +113,6 @@ public class MainActivity extends AppCompatActivity {
         fab_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"test",Toast.LENGTH_SHORT).show();
                 intent = new Intent(MainActivity.this,AddNoteActivity.class);
                 startActivity(intent);
                 fabMenu.close(true);
@@ -139,13 +147,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+        add_notec.setText("");
 
     }
 
     public void alertDialog() {
         LayoutInflater inflater = getLayoutInflater();
         View dialog = inflater.inflate(R.layout.dialog, (ViewGroup) findViewById(R.id.dialog));
-        editText = (EditText) dialog.findViewById(R.id.et);
+        add_notec = (EditText) dialog.findViewById(R.id.et);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("新建笔记本");
@@ -158,7 +167,11 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MainActivity.this,editText.getText(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this,add_notec.getText().toString(),Toast.LENGTH_SHORT).show();
+                if (!add_notec.getText().toString().equals("")){
+                    loaderManager = getLoaderManager();
+                    loaderManager.initLoader(0,null,MainActivity.this);
+                }
             }
         });
         builder.show();
@@ -205,4 +218,24 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    @Override
+    public Loader<String> onCreateLoader(int id, Bundle args) {
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String mobile = sharedPreferences.getString("mobile","");
+        if (id == 0){
+            return new AddNotecAsyncTaskLoader(MainActivity.this,mobile,add_notec.getText().toString()
+                    ,ADD_NOTEC);
+        }
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<String> loader, String data) {
+        Log.d(TAG, data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<String> loader) {
+
+    }
 }

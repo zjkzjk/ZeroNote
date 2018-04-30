@@ -1,6 +1,10 @@
 package www.lovingrabbit.com.zeronote;
 
 
+import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.Context;
+import android.content.Loader;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.annotation.Nullable;
@@ -24,14 +28,28 @@ import www.lovingrabbit.com.zeronote.tools.ItemClickSupport;
  * A simple {@link Fragment} subclass.
  */
 
-public class AllNoteFragment extends Fragment {
+public class AllNoteFragment extends Fragment implements LoaderManager.LoaderCallbacks<String> {
     @BindView(R.id.all_note_rcy)
     RecyclerView recyclerView;
     AllNoteAdapter adapter;
     List<AllNote> allNotes = new ArrayList<AllNote>();
+    Context context;
+    Activity activity;
 
     public AllNoteFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = activity;
     }
 
     @Override
@@ -67,4 +85,18 @@ public class AllNoteFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public Loader<String> onCreateLoader(int id, Bundle args) {
+        return null;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<String> loader, String data) {
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<String> loader) {
+
+    }
 }
