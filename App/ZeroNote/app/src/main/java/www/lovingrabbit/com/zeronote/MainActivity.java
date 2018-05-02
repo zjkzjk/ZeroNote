@@ -36,6 +36,9 @@ import android.widget.Toast;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.lang.reflect.Field;
 
 import butterknife.BindView;
@@ -56,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     FloatingActionMenu fabMenu;
     @BindView(R.id.fab_text)
     FloatingActionButton fab_text;
-
+    
     boolean isMenuShuffle = true;
     Menu nMenu;
     Intent intent;
@@ -147,7 +150,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 return true;
             }
         });
-        add_notec.setText("");
 
     }
 
@@ -162,19 +164,22 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                add_notec.setText("");
             }
+
         });
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MainActivity.this,add_notec.getText().toString(),Toast.LENGTH_SHORT).show();
                 if (!add_notec.getText().toString().equals("")){
                     loaderManager = getLoaderManager();
                     loaderManager.initLoader(0,null,MainActivity.this);
                 }
+                add_notec.setText("");
             }
         });
         builder.show();
+
     }
 
     @Override
@@ -232,6 +237,28 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
         Log.d(TAG, data);
+        int log_result = 100;
+        try {
+            log_result = parseJson(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (log_result == 0){
+            Toast.makeText(MainActivity.this,"失败，网络错误",Toast.LENGTH_SHORT).show();
+        }else if (log_result == 1){
+            Toast.makeText(MainActivity.this,"创建成果",Toast.LENGTH_SHORT).show();
+        }else if (log_result == 2){
+            Toast.makeText(MainActivity.this,"失败，笔记本已经存在",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private int parseJson(String data) throws JSONException {
+        int result = 100;
+        JSONObject jsonObject = new JSONObject(data);
+        result = jsonObject.getInt("result");
+        Log.d(TAG, "parseJson: "+result);
+        return result;
     }
 
     @Override

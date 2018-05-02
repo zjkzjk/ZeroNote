@@ -1,8 +1,12 @@
 package www.lovingrabbit.com.zeronote;
 
 
+import android.app.Activity;
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Loader;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +19,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -24,32 +29,60 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import www.lovingrabbit.com.zeronote.Adapter.AllNote;
 import www.lovingrabbit.com.zeronote.Adapter.Notec;
 import www.lovingrabbit.com.zeronote.Adapter.NotecAdapter;
+import www.lovingrabbit.com.zeronote.tools.GetAsyncTaskLoader;
 import www.lovingrabbit.com.zeronote.tools.ItemClickSupport;
 
 
-public class NotecFragment extends Fragment {
+public class NotecFragment extends Fragment implements LoaderManager.LoaderCallbacks<String>{
+    private static final String TAG = "NotecFragment";
     @BindView(R.id.notec_rcy)
     RecyclerView recyclerView;
     NotecAdapter adapter;
     LoaderManager loaderManager;
     GestureDetector mGestureDetector;
     List<Notec> notecList =  new ArrayList<Notec>();
+    Context context;
+    Activity activity;
+    String GET_NOTEC_URL = "http://47.93.222.179/ZeroNote/api/Notec/getNotec";
 
     public NotecFragment() {
         // Required empty public constructor
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        this.activity = activity;
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        init();
+        loaderManager = getLoaderManager();
+        loaderManager.initLoader(0,null,NotecFragment.this);
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String userID = sharedPreferences.getString("mobile","");
+        if (!userID.equals("")){
+            GET_NOTEC_URL = GET_NOTEC_URL +"?mobile="+userID;
+        }
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
         adapter = new NotecAdapter(notecList);
@@ -83,13 +116,6 @@ public class NotecFragment extends Fragment {
         builder.show();
     }
 
-    private void init() {
-        for (int i = 0;i<20;i++){
-            Notec notec = new Notec("给笔记本取个名字吧~"+i,"0 条 笔 记"+i);
-            notecList.add(notec);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,4 +129,41 @@ public class NotecFragment extends Fragment {
     }
 
 
+    @Override
+    public Loader<String> onCreateLoader(int id, Bundle args) {
+        return new GetAsyncTaskLoader(context,GET_NOTEC_URL);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<String> loader, String data) {
+        Log.d(TAG, "onLoadFinished: "+data);
+        try {
+            parseJson(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        adapter.notifyDataSetChanged();
+    }
+
+    private void parseJson(String data) throws JSONException {
+        notecList.clear();
+        JSONObject jsonObject = new JSONObject(data);
+        JSONArray jsonArray = jsonObject.getJSONArray("search");
+        int allCount = jsonObject.getInt("allCount");
+        for (int i=0;i<allCount;i++){
+            JSONObject get = jsonArray.getJSONObject(i);
+            String title = get.getString("notec_name");
+            String count = get.getString("sum");
+            String updateTime = get.getString("updatetime");
+            int notec_id = get.getInt("notec_id");
+            Notec notec = new Notec(title,count,notec_id,updateTime);
+            notecList.add(notec);
+
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<String> loader) {
+
+    }
 }

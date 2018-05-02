@@ -27,6 +27,15 @@
     <url-pattern>/api/Log/register</url-pattern> 
   </servlet-mapping>  
   
+  <servlet> 
+    <servlet-name>getuser</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Log.GetUserServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>getuser</servlet-name>  
+    <url-pattern>/api/Log/getUser</url-pattern> 
+  </servlet-mapping>  
+  
    <servlet> 
     <servlet-name>addnotec</servlet-name>  
     <servlet-class>com.lovingrabbit.Servlet.Notec.AddNotecServlet</servlet-class> 
@@ -81,4 +90,22 @@
     <servlet-name>getnote</servlet-name>  
     <url-pattern>/api/Note/getNote</url-pattern> 
   </servlet-mapping>  
+  
+  <servlet> 
+    <servlet-name>getnotecnote</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Note.GetNotecNoteServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>getnotecnote</servlet-name>  
+    <url-pattern>/api/Note/getNotec_Note</url-pattern> 
+  </servlet-mapping>
+  
+  <servlet> 
+    <servlet-name>getonenote</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Note.GetOneNoteServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>getonenote</servlet-name>  
+    <url-pattern>/api/Note/getOneNote</url-pattern> 
+  </servlet-mapping>
 </web-app>

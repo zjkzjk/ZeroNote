@@ -27,7 +27,7 @@ public class NotecAdapter extends RecyclerView.Adapter<NotecAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         Notec notec = notecs.get(position);
         holder.title.setText(notec.getTitle());
-        holder.count.setText(notec.getCount());
+        holder.count.setText("一共有"+notec.getCount()+"条笔记");
     }
 
     @Override

@@ -15,8 +15,8 @@ import net.sf.json.JSONObject;
 import com.lovingrabbit.Servlet.Utils.Untils;
 
 public class GetNotecServlet extends HttpServlet{
-	ResultSet rSet,rs;
-	int user_id;
+	ResultSet rSet,rs,rl;
+	int user_id,sum;
 	JSONObject jsonObject;
 	JSONArray jsonArray;
 	int notec_id,count;
@@ -28,6 +28,7 @@ public class GetNotecServlet extends HttpServlet{
 		String selectsId = "select id from user_infro where mobile = "+ usermobile;
 		Untils untils = new Untils();
 		count = 0;
+		sum = 0;
 		jsonArray = new JSONArray();
 		try {
 			rSet = untils.select(selectsId);
@@ -38,6 +39,8 @@ public class GetNotecServlet extends HttpServlet{
 			rs = untils.select(selectNotec);
 			while (rs.next()) {
 				notec_id = rs.getInt("notec_id");
+				String selectNotecCount = "select count(*) as sum from note where notec_id ="+notec_id;
+				rl = untils.select(selectNotecCount);
 				notec_name = rs.getString("notec_name");
 				notec_desc = rs.getString("notec_desc");
 				createTime = rs.getString("createtime");
@@ -52,7 +55,10 @@ public class GetNotecServlet extends HttpServlet{
 				jsonObject.put("updatetime", updateTime);
 				jsonObject.put("body", body);
 				jsonObject.put("pic", pic);
-				jsonObject.put("count", count);
+				while (rl.next()) {
+					sum = rl.getInt("sum");
+				}
+				jsonObject.put("sum", sum);
 				jsonArray.add(count,jsonObject);
 				count = count + 1;
 			}

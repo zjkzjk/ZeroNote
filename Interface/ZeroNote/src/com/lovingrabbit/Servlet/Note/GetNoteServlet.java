@@ -18,8 +18,6 @@ import net.sf.json.JSONObject;
 public class GetNoteServlet extends HttpServlet{
 	ResultSet rSet,rs;
 	int user_id,ifshare;
-	JSONObject jsonObject;
-	JSONArray jsonArray;
 	int note_id,count,notet_id;
 	String note_title,note_body,createTime,updateTime,note_tag,location;
 	@Override
@@ -30,38 +28,41 @@ public class GetNoteServlet extends HttpServlet{
 		System.out.println(selectsId);
 		Untils untils = new Untils();
 		count = 0;
-		jsonArray = new JSONArray();
+		JSONArray jsonArray = new JSONArray();
+		user_id = 0;
 		try {
 			rSet = untils.select(selectsId);
 			while (rSet.next()) {
 				user_id = rSet.getInt("id");
 			}
-			String selectNote = "select * from note where user_id=" + user_id;
-			System.out.println(selectNote);
-			rs = untils.select(selectNote);
-			while (rs.next()) {
-				note_id = rs.getInt("note_id");
-				note_title = rs.getString("note_title");
-				note_body = rs.getString("note_body");
-				createTime = rs.getString("createtime");
-				updateTime = rs.getString("updatetime");
-				note_tag = rs.getString("note_tag");
-				location = rs.getString("location");
-				ifshare = rs.getInt("ifshare");
-				notet_id = rs.getInt("notet_id");
-				jsonObject = new JSONObject();
-				jsonObject.put("note_id", note_id);
-				jsonObject.put("note_title", note_title);
-				jsonObject.put("note_body", note_body);
-				jsonObject.put("createtime", createTime);
-				jsonObject.put("updatetime", updateTime);
-				jsonObject.put("note_tag", note_tag);
-				jsonObject.put("location", location);
-				jsonObject.put("ifshare", ifshare);
-				jsonObject.put("notet_id", notet_id);
-				jsonObject.put("count", count);
-				jsonArray.add(count,jsonObject);
-				count = count + 1;
+			if(user_id!=0) {
+				String selectNote = "select * from note where user_id=" + user_id;
+				System.out.println(selectNote);
+				rs = untils.select(selectNote);
+				while (rs.next()) {
+					note_id = rs.getInt("note_id");
+					note_title = rs.getString("note_title");
+					note_body = rs.getString("note_body");
+					createTime = rs.getString("createtime");
+					updateTime = rs.getString("updatetime");
+					note_tag = rs.getString("note_tag");
+					location = rs.getString("location");
+					ifshare = rs.getInt("ifshare");
+					notet_id = rs.getInt("notet_id");
+					JSONObject jsonObject = new JSONObject();
+					jsonObject.put("note_id", note_id);
+					jsonObject.put("note_title", note_title);
+					jsonObject.put("note_body", note_body);
+					jsonObject.put("createtime", createTime);
+					jsonObject.put("updatetime", updateTime);
+					jsonObject.put("note_tag", note_tag);
+					jsonObject.put("location", location);
+					jsonObject.put("ifshare", ifshare);
+					jsonObject.put("notet_id", notet_id);
+					jsonObject.put("count", count);
+					jsonArray.add(count,jsonObject);
+					count = count + 1;
+				}
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

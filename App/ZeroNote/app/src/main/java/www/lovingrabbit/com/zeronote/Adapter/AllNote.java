@@ -1,10 +1,13 @@
 package www.lovingrabbit.com.zeronote.Adapter;
 
 public class AllNote {
-    String title,article;
-    public AllNote(String mTitle,String mArticle){
+    int id;
+    String title,article,updatetime;
+    public AllNote(String mTitle,String mArticle,int id,String updatetime){
         title = mTitle;
         article = mArticle;
+        this.id = id;
+        this.updatetime = updatetime;
     }
 
     public String getArticle() {
@@ -13,5 +16,13 @@ public class AllNote {
 
     public String getTitle() {
         return title;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getUpdatetime() {
+        return updatetime;
     }
 }

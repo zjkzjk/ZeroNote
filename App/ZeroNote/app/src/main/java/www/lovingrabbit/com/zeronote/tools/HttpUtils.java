@@ -72,6 +72,20 @@ public class HttpUtils {
         jsonObject.put("notec_desc",notec_desc);
         return jsonObject.toString();
     }
+    public String addNote(String mobile,int notec_id,String note_title,String note_body, String note_tag,
+                          String location,int ifshare,int note_type) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("mobile",mobile);
+        jsonObject.put("notec_id",notec_id);
+        jsonObject.put("note_title",note_title);
+        jsonObject.put("note_body",note_body);
+        jsonObject.put("note_tag",note_tag);
+        jsonObject.put("location",location);
+        jsonObject.put("ifshare",ifshare);
+        jsonObject.put("note_type",note_type);
+        Log.d("json", jsonObject.toString());
+        return jsonObject.toString();
+    }
 
 
 }

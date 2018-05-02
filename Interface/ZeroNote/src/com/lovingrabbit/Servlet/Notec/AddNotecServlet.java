@@ -21,8 +21,8 @@ public class AddNotecServlet extends HttpServlet{
 	String truePassword = null;
 	ResultSet rs,rw;
 	int id;
-	String notec_id = "";
-	String returnJSon, mobile, notec_name, notec_desc;
+	String notec_id ;
+	String returnJSon, mobile, notec_name="", notec_desc;
 	String createTime, updateTime;
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -51,10 +51,12 @@ public class AddNotecServlet extends HttpServlet{
 			// crash and burn
 			throw new IOException("Error parsing JSON request string");
 		}
+		notec_id="";
 		Untils untils = new Untils();
 		String selectSql = "select id from user_infro where mobile = " + mobile;
 		String isexist = "select notec_id from note_class where notec_name = \""+notec_name+"\"";
 		Date date = new Date();
+		System.out.println(notec_name);
 		createTime = dateToString(date);
 		updateTime = dateToString(date);
 		try {
@@ -62,6 +64,7 @@ public class AddNotecServlet extends HttpServlet{
 			rw = untils.select(isexist);
 			while (rw.next()) {
 				notec_id = rw.getString("notec_id");
+				System.out.println(notec_id);
 			}
 			if (!notec_id.equals("")) {
 				returnJSon = "{'result':" + 2 + "}";

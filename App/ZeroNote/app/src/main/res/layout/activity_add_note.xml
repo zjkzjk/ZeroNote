@@ -83,14 +83,13 @@
             android:background="@color/deep_red"/>
         <EditText
             android:layout_below="@id/add_note_line"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
+            android:layout_margin="20dp"
             android:id="@+id/add_note_artical"
-            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:background="@null"
+            android:gravity="top"
             android:hint="@string/add_note_article"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
     </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:layout_width="match_parent"

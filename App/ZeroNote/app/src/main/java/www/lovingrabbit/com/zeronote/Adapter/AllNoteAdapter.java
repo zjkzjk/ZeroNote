@@ -1,6 +1,7 @@
 package www.lovingrabbit.com.zeronote.Adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class AllNoteAdapter extends RecyclerView.Adapter<AllNoteAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         AllNote allNote = allNotes.get(position);
         holder.title.setText(allNote.getTitle());
-        holder.article.setText(allNote.getArticle());
+        holder.article.setText(Html.fromHtml("<font color=\'#89434e\'>"+allNote.getUpdatetime()+" | "+"</font><font color=\'#858585\'>"+allNote.getArticle()+"</font>"));
     }
 
     @Override

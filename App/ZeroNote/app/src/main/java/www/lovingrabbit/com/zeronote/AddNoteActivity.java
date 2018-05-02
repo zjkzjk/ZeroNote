@@ -19,14 +19,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import www.lovingrabbit.com.zeronote.tools.AddNoteAsyncTaskLoader;
 import www.lovingrabbit.com.zeronote.tools.GetAsyncTaskLoader;
 
 public class AddNoteActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
@@ -43,10 +49,18 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
     EditText add_title;
     @BindView(R.id.add_note_artical)
     EditText add_artical;
+
+    String location = "23.03,113.75";
     LoaderManager loaderManager;
     Intent intent;
+    long update_time = 0;
+    int notec_id;
+    int isShare = 0,note_type = 1;
+    String notec_name;
+    String note_tag = "测试";
     String GET_NOTEC = "http://47.93.222.179/ZeroNote/api/Notec/getNotec";
-
+    String ADD_NOTE = "http://47.93.222.179/ZeroNote/api/Note/addNote";
+    
     List<String> list = new ArrayList<String>(){};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +95,9 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
             case android.R.id.home:
                 if(add_title.getText().toString().equals("")&&add_artical.getText().toString().equals("")){
                     Toast.makeText(this,"标题和内容不能为空",Toast.LENGTH_SHORT).show();
+                }else {
+                    loaderManager = getLoaderManager();
+                    loaderManager.initLoader(1, null, AddNoteActivity.this);
                 }
                 finish();
                 break;
@@ -103,8 +120,13 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public Loader<String> onCreateLoader(int id, Bundle args) {
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+        String mobile = sharedPreferences.getString("mobile","");
         if (id == 0 ){
             return new GetAsyncTaskLoader(AddNoteActivity.this,GET_NOTEC);
+        }else if (id == 1){
+            return new AddNoteAsyncTaskLoader(AddNoteActivity.this,mobile,notec_id, add_title.getText().toString(),
+                    add_artical.getText().toString(), location,note_tag,note_type,isShare,ADD_NOTE);
         }
         return null;
     }
@@ -112,7 +134,55 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
         Log.d(TAG, data);
+        int log_result = 100;
+        try {
+            log_result = parseJson(data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        if (log_result ==100){
+            btn.setText(notec_name);
+        }else if (log_result == 0){
+            Toast.makeText(AddNoteActivity.this,"发布笔记失败",Toast.LENGTH_SHORT).show();
+        }else if (log_result == 1){
+            Toast.makeText(AddNoteActivity.this,"新建笔记成功",Toast.LENGTH_SHORT).show();
+        }else if (log_result == 1) {
+            Toast.makeText(AddNoteActivity.this, "笔记本不存在", Toast.LENGTH_SHORT).show();
+        }
 
+    }
+
+    private int parseJson(String data) throws JSONException, ParseException {
+        int result = 100;
+        JSONObject jsonObject = new JSONObject(data);
+        if (jsonObject.has("result")) {
+            result = jsonObject.getInt("result");
+        }else {
+            JSONArray search = jsonObject.getJSONArray("search");
+            int allCount = jsonObject.getInt("allCount");
+            for (int i = 0; i < allCount; i++) {
+                JSONObject get = search.getJSONObject(i);
+                String updateTime = get.getString("updatetime");
+                long time = getIntTime(updateTime);
+                int nId = get.getInt("notec_id");
+                String nName = get.getString("notec_name");
+                if (update_time < time) {
+                    update_time = time;
+                    notec_id = nId;
+                    notec_name = nName;
+                }
+            }
+            Log.d(TAG, "notec_id:"+notec_id);
+            Log.d(TAG, "notec_name:"+notec_name);
+        }
+        return result;
+    }
+    public long getIntTime(String date) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        long time = simpleDateFormat.parse(date).getTime();
+        return time;
     }
 
     @Override
