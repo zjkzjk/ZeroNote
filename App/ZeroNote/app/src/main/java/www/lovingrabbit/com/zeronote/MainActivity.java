@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     };
     LoaderManager loaderManager;
     String ADD_NOTEC = "http://47.93.222.179/ZeroNote/api/Notec/addNotec";
+    NotecFragment notecFragment;
 
     private void exit() {
         if (!isExit) {
@@ -121,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 fabMenu.close(true);
             }
         });
+        notecFragment = new NotecFragment();
 //        fabMenu.addMenuButton(fab_text);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -136,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     case R.id.note_book:
                         isMenuShuffle = false;
                         invalidateOptionsMenu();
-                        fragmentChange(new NotecFragment());
+                        fragmentChange(notecFragment);
                         drawerLayout.closeDrawer(navigationView);
                         setTitle(R.string.note_book);
                         break;
@@ -246,7 +248,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if (log_result == 0){
             Toast.makeText(MainActivity.this,"失败，网络错误",Toast.LENGTH_SHORT).show();
         }else if (log_result == 1){
-            Toast.makeText(MainActivity.this,"创建成果",Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this,"创建成功",Toast.LENGTH_SHORT).show();
+            notecFragment.reload();
         }else if (log_result == 2){
             Toast.makeText(MainActivity.this,"失败，笔记本已经存在",Toast.LENGTH_SHORT).show();
         }

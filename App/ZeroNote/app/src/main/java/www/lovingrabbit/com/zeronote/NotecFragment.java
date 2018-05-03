@@ -55,8 +55,10 @@ public class NotecFragment extends Fragment implements LoaderManager.LoaderCallb
     List<Notec> notecList =  new ArrayList<Notec>();
     Context context;
     Activity activity;
+    String delete_url =null,get_url=null;
     String GET_NOTEC_URL = "http://47.93.222.179/ZeroNote/api/Notec/getNotec";
-
+    String DELETE_NOTEC_URL = "http://47.93.222.179/ZeroNote/api/Notec/deleteNotec";
+    int deletePosition;
     public NotecFragment() {
         // Required empty public constructor
     }
@@ -76,13 +78,14 @@ public class NotecFragment extends Fragment implements LoaderManager.LoaderCallb
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        loaderManager = getLoaderManager();
-        loaderManager.initLoader(0,null,NotecFragment.this);
+
         SharedPreferences sharedPreferences = activity.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String userID = sharedPreferences.getString("mobile","");
-        if (!userID.equals("")){
-            GET_NOTEC_URL = GET_NOTEC_URL +"?mobile="+userID;
-        }
+
+        get_url = GET_NOTEC_URL +"?mobile="+userID;
+        loaderManager = getLoaderManager();
+
+        loaderManager.initLoader(0,null,NotecFragment.this);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(manager);
         adapter = new NotecAdapter(notecList);
@@ -90,13 +93,12 @@ public class NotecFragment extends Fragment implements LoaderManager.LoaderCallb
         ItemClickSupport.addTo(recyclerView).setOnItemLongClickListener(new ItemClickSupport.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v) {
-                alertDialog();
+                alertDialog(position);
                 return false;
             }
         });
     }
-    public void alertDialog() {
-
+    public void alertDialog(final int position) {
         final String[] items = new String[]{
                 "共享",
                 "离线保存",
@@ -110,11 +112,21 @@ public class NotecFragment extends Fragment implements LoaderManager.LoaderCallb
         builder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getActivity(),which+"",Toast.LENGTH_SHORT).show();
+                switch (which){
+                    case 5:
+                        delete_url = DELETE_NOTEC_URL + "?notec_id=" + notecList.get(position).getId();
+                        deletePosition = position;
+                        loaderManager = getLoaderManager();
+                        loaderManager.initLoader(1,null,NotecFragment.this);
+                        break;
+                        default:
+                            break;
+                }
             }
         });
         builder.show();
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -127,11 +139,20 @@ public class NotecFragment extends Fragment implements LoaderManager.LoaderCallb
         return view;
 
     }
+    public void reload(){
+        loaderManager = getLoaderManager();
+        loaderManager.restartLoader(0,null,NotecFragment.this);
+    }
 
 
     @Override
     public Loader<String> onCreateLoader(int id, Bundle args) {
-        return new GetAsyncTaskLoader(context,GET_NOTEC_URL);
+        if (id ==0) {
+            return new GetAsyncTaskLoader(context,get_url);
+        }else if (id == 1){
+            return new GetAsyncTaskLoader(context,delete_url);
+        }
+        return null;
     }
 
     @Override
@@ -146,24 +167,35 @@ public class NotecFragment extends Fragment implements LoaderManager.LoaderCallb
     }
 
     private void parseJson(String data) throws JSONException {
-        notecList.clear();
         JSONObject jsonObject = new JSONObject(data);
-        JSONArray jsonArray = jsonObject.getJSONArray("search");
-        int allCount = jsonObject.getInt("allCount");
-        for (int i=0;i<allCount;i++){
-            JSONObject get = jsonArray.getJSONObject(i);
-            String title = get.getString("notec_name");
-            String count = get.getString("sum");
-            String updateTime = get.getString("updatetime");
-            int notec_id = get.getInt("notec_id");
-            Notec notec = new Notec(title,count,notec_id,updateTime);
-            notecList.add(notec);
+        if (jsonObject.has("del_result")) {
+            int del_result = jsonObject.getInt("del_result");
+            if (del_result == 1){
+                Toast.makeText(context,"删除成功",Toast.LENGTH_SHORT).show();
+                notecList.remove(deletePosition);
+            }else if (del_result ==2){
+                Toast.makeText(context,"笔记本不存在",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(context,"删除失败",Toast.LENGTH_SHORT).show();
+            }
+        }else {
+            notecList.clear();
+            JSONArray jsonArray = jsonObject.getJSONArray("search");
+            int allCount = jsonObject.getInt("allCount");
+            for (int i = 0; i < allCount; i++) {
+                JSONObject get = jsonArray.getJSONObject(i);
+                String title = get.getString("notec_name");
+                String count = get.getString("sum");
+                String updateTime = get.getString("updatetime");
+                int notec_id = get.getInt("notec_id");
+                Notec notec = new Notec(title, count, notec_id, updateTime);
+                notecList.add(notec);
+            }
 
         }
     }
-
     @Override
     public void onLoaderReset(Loader<String> loader) {
-
+        adapter.notifyDataSetChanged();
     }
 }

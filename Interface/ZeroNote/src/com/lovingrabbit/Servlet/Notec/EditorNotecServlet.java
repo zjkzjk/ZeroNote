@@ -54,12 +54,12 @@ public class EditorNotecServlet extends HttpServlet{
 		try {
 			System.out.println(updateSql);
 			untils.update(updateSql);
-			returnJSon = "{'result':" + 1 + "}";
+			returnJSon = "{'edit_result':" + 1 + "}";
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			returnJSon = "{'result':" + 2 + "}";
+			returnJSon = "{'edit_result':" + 2 + "}";
 		}
 		JSONObject rjson = new JSONObject(returnJSon);
 		resp.setHeader("content-type", "application/json;charset=utf-8");

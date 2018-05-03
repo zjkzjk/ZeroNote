@@ -49,8 +49,10 @@ public class AllNoteFragment extends Fragment implements LoaderManager.LoaderCal
     Activity activity;
 
     LoaderManager loaderManager;
+    String get_url = null;
     String GET_NOTE_URL = "http://47.93.222.179/ZeroNote/api/Note/getNote";
     int position=0;
+
 
     public AllNoteFragment() {
         // Required empty public constructor
@@ -74,7 +76,7 @@ public class AllNoteFragment extends Fragment implements LoaderManager.LoaderCal
 
         SharedPreferences sharedPreferences = activity.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String mobile = sharedPreferences.getString("mobile","");
-        GET_NOTE_URL = GET_NOTE_URL + "?mobile="+mobile;
+        get_url = GET_NOTE_URL + "?mobile="+mobile;
         loaderManager = getLoaderManager();
         loaderManager.initLoader(0,null,AllNoteFragment.this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -96,7 +98,6 @@ public class AllNoteFragment extends Fragment implements LoaderManager.LoaderCal
                 LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     position = manager.findFirstCompletelyVisibleItemPosition();
-                    Log.d(TAG, "onScrollStateChanged: "+position);
                 }
             }
         });
@@ -114,8 +115,7 @@ public class AllNoteFragment extends Fragment implements LoaderManager.LoaderCal
 
     @Override
     public Loader<String> onCreateLoader(int id, Bundle args) {
-
-        return new GetAsyncTaskLoader(context,GET_NOTE_URL);
+        return new GetAsyncTaskLoader(context,get_url);
     }
 
     @Override

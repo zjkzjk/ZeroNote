@@ -20,6 +20,12 @@ public class NotecAdapter extends RecyclerView.Adapter<NotecAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notec_list,parent,false);
         ViewHolder holder = new ViewHolder(view);
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return holder;
     }
 

@@ -65,10 +65,11 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:textColor="#4c4c4c"
-            android:text="我是笔记本一号"
+            android:text=""
             android:gravity="center_vertical"
             android:paddingTop="6dp"
             android:background="@null"
+            android:textAllCaps="false"
             android:dropDownVerticalOffset="-41dp"
             android:popupBackground="#f3f8f9"
             android:layout_height="40dp">

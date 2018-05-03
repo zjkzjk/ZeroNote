@@ -58,6 +58,7 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
     int isShare = 0,note_type = 1;
     String notec_name;
     String note_tag = "测试";
+    String get_url=null;
     String GET_NOTEC = "http://47.93.222.179/ZeroNote/api/Notec/getNotec";
     String ADD_NOTE = "http://47.93.222.179/ZeroNote/api/Note/addNote";
     
@@ -77,14 +78,14 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
             @Override
             public void onClick(View v) {
                 intent = new Intent(AddNoteActivity.this,SelectNotecActivity.class);
-                startActivity(intent);
+                intent.putExtra("id",notec_id);
+                startActivityForResult(intent,111);
             }
         });
         SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String userID = sharedPreferences.getString("mobile","");
-        if (!userID.equals("")){
-            GET_NOTEC = GET_NOTEC +"?mobile="+userID;
-        }
+        get_url = GET_NOTEC +"?mobile="+userID;
+
         loaderManager = getLoaderManager();
         loaderManager.initLoader(0,null,AddNoteActivity.this);
     }
@@ -123,7 +124,7 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
         SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
         String mobile = sharedPreferences.getString("mobile","");
         if (id == 0 ){
-            return new GetAsyncTaskLoader(AddNoteActivity.this,GET_NOTEC);
+            return new GetAsyncTaskLoader(AddNoteActivity.this,get_url);
         }else if (id == 1){
             return new AddNoteAsyncTaskLoader(AddNoteActivity.this,mobile,notec_id, add_title.getText().toString(),
                     add_artical.getText().toString(), location,note_tag,note_type,isShare,ADD_NOTE);
@@ -133,7 +134,6 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
-        Log.d(TAG, data);
         int log_result = 100;
         try {
             log_result = parseJson(data);
@@ -143,14 +143,17 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
             e.printStackTrace();
         }
         if (log_result ==100){
-            btn.setText(notec_name);
+            if (btn.getText().equals("")) {
+                btn.setText(notec_name);
+
+            }
         }else if (log_result == 0){
             Toast.makeText(AddNoteActivity.this,"发布笔记失败",Toast.LENGTH_SHORT).show();
         }else if (log_result == 1){
             Toast.makeText(AddNoteActivity.this,"新建笔记成功",Toast.LENGTH_SHORT).show();
         }else if (log_result == 1) {
             Toast.makeText(AddNoteActivity.this, "笔记本不存在", Toast.LENGTH_SHORT).show();
-        }
+        }Log.d(TAG, "onLoadFinished: "+notec_id);
 
     }
 
@@ -174,8 +177,6 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
                     notec_name = nName;
                 }
             }
-            Log.d(TAG, "notec_id:"+notec_id);
-            Log.d(TAG, "notec_name:"+notec_name);
         }
         return result;
     }
@@ -183,6 +184,19 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         long time = simpleDateFormat.parse(date).getTime();
         return time;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 111 && resultCode == RESULT_OK) {
+            int selectid = data.getIntExtra("select_id",0);
+            String name = data.getStringExtra("select_name");
+            Log.d(TAG, "onActivityResult: "+name);
+            Log.d(TAG, "onActivityResult: "+selectid);
+            btn.setText(name);
+            notec_id = selectid;
+        }
     }
 
     @Override
