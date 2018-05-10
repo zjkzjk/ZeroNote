@@ -36,7 +36,7 @@ public class GetNoteServlet extends HttpServlet{
 				user_id = rSet.getInt("id");
 			}
 			if(user_id!=0) {
-				String selectNote = "select * from note where user_id=" + user_id;
+				String selectNote = "select * from note where user_id=" + user_id +" order by updatetime asc";
 				System.out.println(selectNote);
 				rs = untils.select(selectNote);
 				while (rs.next()) {

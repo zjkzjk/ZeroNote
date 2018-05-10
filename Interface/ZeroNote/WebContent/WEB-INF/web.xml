@@ -37,6 +37,15 @@
   </servlet-mapping>  
   
    <servlet> 
+    <servlet-name>editUser</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Log.EditorUserServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>editUser</servlet-name>  
+    <url-pattern>/api/Log/editUser</url-pattern> 
+  </servlet-mapping>  
+  
+   <servlet> 
     <servlet-name>addnotec</servlet-name>  
     <servlet-class>com.lovingrabbit.Servlet.Notec.AddNotecServlet</servlet-class> 
   </servlet>  
@@ -92,6 +101,24 @@
   </servlet-mapping>  
   
   <servlet> 
+    <servlet-name>editNote</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Note.EditorNoteServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>editNote</servlet-name>  
+    <url-pattern>/api/Note/editNote</url-pattern> 
+  </servlet-mapping>  
+  
+    <servlet> 
+    <servlet-name>deleteSomeNote</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Note.DeleteNoteServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>deleteSomeNote</servlet-name>  
+    <url-pattern>/api/Note/deleteNote</url-pattern> 
+  </servlet-mapping>  
+  
+  <servlet> 
     <servlet-name>getnotecnote</servlet-name>  
     <servlet-class>com.lovingrabbit.Servlet.Note.GetNotecNoteServlet</servlet-class> 
   </servlet>  
@@ -107,5 +134,14 @@
   <servlet-mapping> 
     <servlet-name>getonenote</servlet-name>  
     <url-pattern>/api/Note/getOneNote</url-pattern> 
+  </servlet-mapping>
+  
+  <servlet> 
+    <servlet-name>uploadfile</servlet-name>  
+    <servlet-class>com.lovingrabbit.Servlet.Utils.UploadShipServlet</servlet-class> 
+  </servlet>  
+  <servlet-mapping> 
+    <servlet-name>uploadfile</servlet-name>  
+    <url-pattern>/api/Log/uploadFile</url-pattern> 
   </servlet-mapping>
 </web-app>

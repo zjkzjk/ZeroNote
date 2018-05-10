@@ -57,10 +57,11 @@ public class EditorNoteServlet extends HttpServlet{
 		updateTime = dateToString(date);
 		String updateSql = "update note set notec_id= \""+notec_id+"\" ,note_title = \""+note_title+"\" ,note_body = \""
 				+ note_body +"\" , note_tag = \"" + note_tag +"\" , location = \""+location +"\" , ifshare = " +ifshare +
-				" , note_type = " + note_type +" , updatetime = \""+updateTime  + "\" where note_id = "+note_id;
+				" , notet_id = " + note_type +" , updatetime = \""+updateTime  + "\" where note_id = "+note_id;
+		System.out.println(updateSql);
 		Untils untils = new Untils();
 		try {
-			rs = untils.select(updateSql);
+			untils.update(updateSql);
 			returnJSon = "{'result':" + 1 + "}";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

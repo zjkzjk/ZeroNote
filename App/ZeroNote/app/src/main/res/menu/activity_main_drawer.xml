@@ -10,11 +10,11 @@
             android:title="@string/all_note" />
         <item
             android:id="@+id/note_book"
-            android:icon="@drawable/books"
+            android:icon="@drawable/books2"
             android:title="@string/note_book" />
         <item
             android:id="@+id/share_note"
-            android:icon="@drawable/share"
+            android:icon="@drawable/share2"
             android:title="@string/share_note" />
         <item
             android:id="@+id/rubbish"

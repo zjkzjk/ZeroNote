@@ -50,13 +50,13 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
     @BindView(R.id.add_note_artical)
     EditText add_artical;
 
-    String location = "23.03,113.75";
     LoaderManager loaderManager;
     Intent intent;
     long update_time = 0;
     int notec_id;
     int isShare = 0,note_type = 1;
     String notec_name;
+    String location = "23.03,113.75";
     String note_tag = "测试";
     String get_url=null;
     String GET_NOTEC = "http://47.93.222.179/ZeroNote/api/Notec/getNotec";
@@ -145,7 +145,6 @@ public class AddNoteActivity extends AppCompatActivity implements LoaderManager.
         if (log_result ==100){
             if (btn.getText().equals("")) {
                 btn.setText(notec_name);
-
             }
         }else if (log_result == 0){
             Toast.makeText(AddNoteActivity.this,"发布笔记失败",Toast.LENGTH_SHORT).show();

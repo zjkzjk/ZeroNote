@@ -39,7 +39,7 @@ public class GetNotecServlet extends HttpServlet{
 			rs = untils.select(selectNotec);
 			while (rs.next()) {
 				notec_id = rs.getInt("notec_id");
-				String selectNotecCount = "select count(*) as sum from note where notec_id ="+notec_id;
+				String selectNotecCount = "select count(*) as sum from note where notec_id =" + notec_id + " order by updatetime asc";
 				rl = untils.select(selectNotecCount);
 				notec_name = rs.getString("notec_name");
 				notec_desc = rs.getString("notec_desc");

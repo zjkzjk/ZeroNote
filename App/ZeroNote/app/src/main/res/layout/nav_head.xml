@@ -12,6 +12,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="44dp"
             android:layout_height="90dp"
+            android:id="@+id/user_pic"
             android:padding="2dp"
             android:src="@drawable/user"/>
         <TextView
@@ -19,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:textSize="14sp"
+            android:id="@+id/user_name"
             android:textColor="#fbfbf7"
             android:layout_marginLeft="22dp"
             android:text="@string/user_test"/>
@@ -28,6 +30,7 @@
             android:layout_marginTop="4dp"
             android:textSize="12sp"
             android:textColor="#fbfbf7"
+            android:id="@+id/user_mobile"
             android:layout_marginLeft="22dp"
             android:text="@string/mobile_test"/>
 

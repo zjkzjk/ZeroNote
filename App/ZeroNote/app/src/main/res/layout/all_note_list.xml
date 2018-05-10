@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@drawable/touch_bg"
     android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/note_ischeck"
+        android:layout_marginLeft="20dp"
+        android:padding="5dp"
+        android:layout_width="50dp"
+        android:src="@drawable/circle"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_height="50dp" />
     <LinearLayout
+        android:layout_toRightOf="@id/note_ischeck"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/touch_bg"
-
+        android:id="@+id/note_main"
         android:orientation="vertical">
         <TextView
             android:layout_width="wrap_content"
@@ -38,14 +48,15 @@
                 android:text="18:30 | 2 kb  写了些什么呢~"
                 android:ellipsize="end"/>
         </LinearLayout>
-        <ImageView
-            android:layout_marginTop="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#8b90a0"/>
+
     </LinearLayout>
+    <ImageView
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/note_main"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#8b90a0"/>
 
-
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

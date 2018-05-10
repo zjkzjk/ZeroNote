@@ -55,6 +55,7 @@ public class NotecFragment extends Fragment implements LoaderManager.LoaderCallb
     List<Notec> notecList =  new ArrayList<Notec>();
     Context context;
     Activity activity;
+    boolean isCreated = false;
     String delete_url =null,get_url=null;
     String GET_NOTEC_URL = "http://47.93.222.179/ZeroNote/api/Notec/getNotec";
     String DELETE_NOTEC_URL = "http://47.93.222.179/ZeroNote/api/Notec/deleteNotec";
@@ -117,7 +118,12 @@ public class NotecFragment extends Fragment implements LoaderManager.LoaderCallb
                         delete_url = DELETE_NOTEC_URL + "?notec_id=" + notecList.get(position).getId();
                         deletePosition = position;
                         loaderManager = getLoaderManager();
-                        loaderManager.initLoader(1,null,NotecFragment.this);
+                        if(!isCreated) {
+                            loaderManager.initLoader(1, null, NotecFragment.this);
+                            isCreated = true;
+                        }else {
+                            loaderManager.restartLoader(1,null,NotecFragment.this);
+                        }
                         break;
                         default:
                             break;
@@ -157,7 +163,6 @@ public class NotecFragment extends Fragment implements LoaderManager.LoaderCallb
 
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
-        Log.d(TAG, "onLoadFinished: "+data);
         try {
             parseJson(data);
         } catch (JSONException e) {

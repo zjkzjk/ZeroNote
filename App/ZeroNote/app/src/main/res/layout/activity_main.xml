@@ -57,7 +57,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:paddingRight="20dp"
-                android:paddingBottom="40dp"
+                android:paddingBottom="70dp"
                 app:menu_fab_size="normal"
                 app:menu_labels_ellipsize="end"
                 app:menu_backgroundColor="#bbffffff"
@@ -109,9 +109,28 @@
         android:layout_height="match_parent"
         android:background="#f3f8f9"
         android:layout_gravity="start"
-        app:headerLayout="@layout/nav_head"
         app:menu="@menu/activity_main_drawer"
         >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal"
+            android:id="@+id/main_setting"
+            android:layout_marginLeft="18dp"
+            android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/setting"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#0a0000"
+                android:layout_marginLeft="12dp"
+                android:paddingRight="12dp"
+                android:text="设置"/>
+        </LinearLayout>
 
     </android.support.design.widget.NavigationView>
 

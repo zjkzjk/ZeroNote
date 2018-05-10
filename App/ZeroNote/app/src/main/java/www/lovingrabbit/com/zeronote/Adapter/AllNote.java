@@ -3,6 +3,7 @@ package www.lovingrabbit.com.zeronote.Adapter;
 public class AllNote {
     int id;
     String title,article,updatetime;
+    public boolean isSelect;
     public AllNote(String mTitle,String mArticle,int id,String updatetime){
         title = mTitle;
         article = mArticle;
@@ -24,5 +25,12 @@ public class AllNote {
 
     public String getUpdatetime() {
         return updatetime;
+    }
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+    public void setSelect(boolean isSelect) {
+        this.isSelect = isSelect;
     }
 }

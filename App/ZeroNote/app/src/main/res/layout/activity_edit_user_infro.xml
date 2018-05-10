@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".EditUserInfroActivity">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/edit_user_infro_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|enterAlways|snap">
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/edit_user_infro_toolbar"
+        android:fitsSystemWindows="true"
+        android:paddingBottom="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/deep_red"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStart="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <LinearLayout
+            android:id="@+id/edit_user_infro_back"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="22dp"
+                android:src="@drawable/back_small" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="#fbfbf7"
+            android:textSize="18sp"
+            android:text="编辑个人信息"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="保存"
+            android:id="@+id/edit_user_infro_save"
+            android:textSize="14sp"
+            android:textColor="#0a0000"
+            android:layout_gravity="right"/>
+        
+
+    </android.support.v7.widget.Toolbar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/edit_main"
+        android:layout_below="@id/edit_user_infro_toolbar"
+        android:background="#eee"
+        android:layout_height="220dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:src="@drawable/user"
+            android:id="@+id/edit_user_infro_pic"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:layout_height="100dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:id="@+id/edit_user_infro_username"
+            android:text="请叫我欧尼酱"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/edit_user_infro_pic"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:id="@+id/edit_user_infro_mobile"
+            android:text="17854290633"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/edit_user_infro_username"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/edit_main"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="@color/deep_red"
+            android:text="姓名:"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edit_user_infro_name"
+            android:background="@null"
+            android:layout_height="40dp" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/deep_red"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

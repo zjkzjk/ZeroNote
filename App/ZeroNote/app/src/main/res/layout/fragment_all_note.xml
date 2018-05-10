@@ -38,5 +38,40 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        android:id="@+id/long_press_show"
+        android:gravity="center_vertical"
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/select_num"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:text="已选择：0"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/all_select"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="取消"
+            android:layout_marginLeft="110dp"
+            android:background="@drawable/sharp_white"
+            />
+        <Button
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/all_delete"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sharp"/>
     </LinearLayout>
 </FrameLayout>

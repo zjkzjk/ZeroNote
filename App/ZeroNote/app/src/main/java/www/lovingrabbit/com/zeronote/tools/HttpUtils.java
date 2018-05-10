@@ -2,10 +2,12 @@ package www.lovingrabbit.com.zeronote.tools;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Set;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -83,8 +85,40 @@ public class HttpUtils {
         jsonObject.put("location",location);
         jsonObject.put("ifshare",ifshare);
         jsonObject.put("note_type",note_type);
-        Log.d("json", jsonObject.toString());
         return jsonObject.toString();
+    }
+    public String editNote(int note_id,int notec_id,String note_title,String note_body, String note_tag,
+                          String location,int ifshare,int note_type) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("note_id",note_id);
+        jsonObject.put("notec_id",notec_id);
+        jsonObject.put("note_title",note_title);
+        jsonObject.put("note_body",note_body);
+        jsonObject.put("note_tag",note_tag);
+        jsonObject.put("location",location);
+        jsonObject.put("ifshare",ifshare);
+        jsonObject.put("note_type",note_type);
+        return jsonObject.toString();
+    }
+    public String editUser(String mobile,String username,String pic) throws JSONException{
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("mobile",mobile);
+        jsonObject.put("username",username);
+        jsonObject.put("pic",pic);
+        return jsonObject.toString();
+    }
+    public String deleteNote(Set<Integer> set) throws JSONException {
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+        for (int id :set){
+            JSONObject getJson = new JSONObject();
+            getJson.put("id",id);
+            jsonArray.put(getJson);
+        }
+        jsonObject.put("delete_id",jsonArray);
+        Log.d("delectNote", "deleteNote: "+jsonArray.toString());
+        return jsonObject.toString();
+
     }
 
 

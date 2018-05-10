@@ -15,7 +15,7 @@ import com.lovingrabbit.Servlet.Utils.Untils;
 import net.sf.json.JSONObject;
 
 public class GetOneNoteServlet extends HttpServlet{
-	ResultSet rs;
+	ResultSet rs,rl;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -27,8 +27,13 @@ public class GetOneNoteServlet extends HttpServlet{
 		try {
 			rs = untils.select(SelectOneNote);
 			while (rs.next()) {
-				
 				int notec_id = rs.getInt("notec_id");
+				String SelectNotecName = "select notec_name from note_class where notec_id ="+notec_id;
+				rl = untils.select(SelectNotecName);
+				String notec_name =null;
+				while (rl.next()) {
+					notec_name = rl.getString("notec_name");
+				}
 				String note_title = rs.getString("note_title");
 				String note_body = rs.getString("note_body");
 				String createTime = rs.getString("createtime");
@@ -46,6 +51,7 @@ public class GetOneNoteServlet extends HttpServlet{
 				jsonObject.put("location", location);
 				jsonObject.put("ifshare", ifshare);
 				jsonObject.put("notet_id", notet_id);
+				jsonObject.put("notec_name", notec_name);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

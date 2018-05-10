@@ -17,7 +17,6 @@ import com.lovingrabbit.Servlet.Utils.Untils;
 
 public class EditorUserServlet extends HttpServlet{
 	String mobile,username,pic,birth,returnJSon;
-	ResultSet rs;
 	int id;
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -42,23 +41,20 @@ public class EditorUserServlet extends HttpServlet{
 			mobile = jsonObject.getString("mobile");
 			username = jsonObject.getString("username");
 			pic = jsonObject.getString("pic");
-			birth = jsonObject.getString("birth");
-			id = jsonObject.getInt("id");
 			
 		} catch (Exception e) {
 			// crash and burn
 			throw new IOException("Error parsing JSON request string");
 		}
-		String updateSql = "update user_infro set username = \""+username+"\" , pic = \"" +pic +"\" , birth = \""+birth
-				+"\" where mobile = "+mobile;
+		String updateSql = "update user_infro set username = \""+username+"\" , pic = \"" +pic +"\" where mobile = "+mobile;
 		Untils untils = new Untils();
 		try {
-			rs = untils.select(updateSql);
-			returnJSon = "{'result':" + 1 + "}";
+			untils.update(updateSql);
+			returnJSon = "{'editResult':" + 1 + "}";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			returnJSon = "{'result':" + 2 + "}";
+			returnJSon = "{'editResult':" + 2 + "}";
 		}
 		JSONObject rjson = new JSONObject(returnJSon);
 		resp.setHeader("content-type", "application/json;charset=utf-8");

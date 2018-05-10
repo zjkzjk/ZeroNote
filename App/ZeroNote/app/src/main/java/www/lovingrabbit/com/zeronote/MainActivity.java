@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +16,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -30,9 +32,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -43,7 +47,9 @@ import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import www.lovingrabbit.com.zeronote.tools.AddNotecAsyncTaskLoader;
+import www.lovingrabbit.com.zeronote.tools.GetAsyncTaskLoader;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
     private static final String TAG = "MainActivity";
@@ -59,12 +65,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     FloatingActionMenu fabMenu;
     @BindView(R.id.fab_text)
     FloatingActionButton fab_text;
-    
+    @BindView(R.id.main_setting)
+    LinearLayout main_setting;
+
+    TextView nav_username,nav_userMobile;
+    CircleImageView nav_userPic;
+    View draw ;
     boolean isMenuShuffle = true;
-    Menu nMenu;
+    String mobile;
+    int user_id;
     Intent intent;
     EditText add_notec;
-    MenuItem addNotec, compose;
     Handler mHandler = new Handler() {
 
         @Override
@@ -75,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     };
     LoaderManager loaderManager;
     String ADD_NOTEC = "http://47.93.222.179/ZeroNote/api/Notec/addNotec";
+    final String IMG = "http://47.93.222.179/ZeroNote/upload/";
+    String get_url ,username,pic;
+    final String GET_USER_URL = "http://47.93.222.179/ZeroNote/api/Log/getUser";
     NotecFragment notecFragment;
 
     private void exit() {
@@ -112,6 +126,28 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             actionBar.setHomeAsUpIndicator(R.mipmap.menu);
         }
         navigationView.setCheckedItem(R.id.all_note);
+        draw = navigationView.inflateHeaderView(R.layout.nav_head);
+
+        int[][] states = new int[][] {
+
+                new int[] { -android.R.attr.state_checked},  // pressed
+                new int[] { android.R.attr.state_checked } // selected
+        };
+
+        int[] colors = new int[] {
+                Color.rgb(10, 0, 0),
+                Color.rgb(137, 67, 78)
+
+        };
+
+        ColorStateList myList = new ColorStateList(states, colors);
+        navigationView.setItemTextColor(myList);
+        navigationView.setItemIconTintList(myList);
+
+        nav_username = draw.findViewById(R.id.user_name);
+        nav_userMobile = draw.findViewById(R.id.user_mobile);
+        nav_userPic = draw.findViewById(R.id.user_pic);
+
         fabMenu.setClosedOnTouchOutside(true);
 
         fab_text.setOnClickListener(new View.OnClickListener() {
@@ -152,7 +188,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 return true;
             }
         });
-
+        main_setting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startSetting();
+            }
+        });
+        loaderManager = getLoaderManager();
+        loaderManager.initLoader(7,null,MainActivity.this);
+    }
+    public void startSetting(){
+        Intent intent = new Intent(MainActivity.this,SettingActivity.class);
+        intent.putExtra("pic",pic);
+        intent.putExtra("username",username);
+        startActivity(intent);
     }
 
     public void alertDialog() {
@@ -177,11 +226,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                     loaderManager = getLoaderManager();
                     loaderManager.initLoader(0,null,MainActivity.this);
                 }
-                add_notec.setText("");
             }
         });
         builder.show();
-
     }
 
     @Override
@@ -192,6 +239,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 break;
             case R.id.action_add_notec:
                 alertDialog();
+                break;
+            case R.id.setting:
+                startSetting();
                 break;
             default:
 
@@ -228,44 +278,57 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public Loader<String> onCreateLoader(int id, Bundle args) {
         SharedPreferences sharedPreferences = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
-        String mobile = sharedPreferences.getString("mobile","");
+        mobile = sharedPreferences.getString("mobile","");
         if (id == 0){
-            return new AddNotecAsyncTaskLoader(MainActivity.this,mobile,add_notec.getText().toString()
-                    ,ADD_NOTEC);
+            Log.d(TAG, "onCreateLoader: "+add_notec.getText().toString());
+            if (!add_notec.getText().toString().equals("")) {
+                return new AddNotecAsyncTaskLoader(MainActivity.this, mobile, add_notec.getText().toString()
+                        , ADD_NOTEC);
+            }
+        }else if (id == 7){
+            get_url = GET_USER_URL +"?mobile="+mobile;
+            return new GetAsyncTaskLoader(MainActivity.this,get_url);
         }
         return null;
     }
 
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
-        Log.d(TAG, data);
-        int log_result = 100;
         try {
-            log_result = parseJson(data);
+            parseJson(data);
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-        if (log_result == 0){
-            Toast.makeText(MainActivity.this,"失败，网络错误",Toast.LENGTH_SHORT).show();
-        }else if (log_result == 1){
-            Toast.makeText(MainActivity.this,"创建成功",Toast.LENGTH_SHORT).show();
-            notecFragment.reload();
-        }else if (log_result == 2){
-            Toast.makeText(MainActivity.this,"失败，笔记本已经存在",Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    private int parseJson(String data) throws JSONException {
+    private void parseJson(String data) throws JSONException {
         int result = 100;
         JSONObject jsonObject = new JSONObject(data);
-        result = jsonObject.getInt("result");
-        Log.d(TAG, "parseJson: "+result);
-        return result;
+        if (jsonObject.has("result")) {
+            result = jsonObject.getInt("result");
+            if (result == 0){
+                Toast.makeText(MainActivity.this,"失败，网络错误",Toast.LENGTH_SHORT).show();
+            }else if (result == 1){
+                Toast.makeText(MainActivity.this,"创建成功",Toast.LENGTH_SHORT).show();
+                notecFragment.reload();
+            }else if (result == 2){
+                Toast.makeText(MainActivity.this,"失败，笔记本已经存在",Toast.LENGTH_SHORT).show();
+            }
+            add_notec.setText("");
+            loaderManager.destroyLoader(0);
+        }else{
+            user_id = jsonObject.getInt("id");
+            username = jsonObject.getString("username");
+            pic = jsonObject.getString("pic");
+            Glide.with(this).load(IMG+pic).into(nav_userPic);
+            nav_username.setText(username);
+            nav_userMobile.setText(mobile);
+        }
     }
 
     @Override
     public void onLoaderReset(Loader<String> loader) {
-
+        Log.d(TAG, "onLoaderReset: ");
     }
 }
