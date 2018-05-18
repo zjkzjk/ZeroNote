@@ -38,7 +38,7 @@
             android:layout_width="270dp"
             android:layout_height="50dp"
             android:id="@+id/login_mobile"
-            android:hint="@string/login_mobile"
+            android:hint="输入您的邮箱或者手机"
             android:textSize="14sp"
             android:layout_gravity="center_horizontal"
             android:theme="@style/MyEditText" />
@@ -51,6 +51,27 @@
             android:inputType="textPassword"
             android:layout_gravity="center_horizontal"
             android:theme="@style/MyEditText" />
+        <RelativeLayout
+            android:layout_width="270dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            >
+            <EditText
+                android:layout_width="270dp"
+                android:layout_height="50dp"
+                android:hint="输入验证码"
+                android:textSize="14sp"
+                android:inputType="textPassword"
+                android:layout_gravity="center_horizontal"
+                android:theme="@style/MyEditText" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="获取验证码"
+                android:textColor="@color/deep_red"
+                android:layout_alignParentRight="true"
+                android:background="@null"/>
+        </RelativeLayout>
         <Button
             android:id="@+id/login_button"
             android:layout_width="250dp"
